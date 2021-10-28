@@ -1,0 +1,7 @@
+pandas
+numpy==1.19.2
+matplotlib
+scipy
+scikit-learn
+tensorflow-macos
+tensorflow-metal
