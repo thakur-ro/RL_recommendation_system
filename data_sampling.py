@@ -3,6 +3,10 @@ import pandas as pd
 import numpy as np
 import os
 
+'''
+python data_sampling.py --file_path dataset/Electronics.csv --target_dir dataset/ --num_items 15000 --min_history 19
+'''
+
 def parse_arguments():
     """Parses program arguments"""
     parser = argparse.ArgumentParser()
@@ -52,7 +56,7 @@ def clean_df(ratings, num_items, min_history):
     print("Kept only top users")
 
     temp_df = df.merge(temp,on='user',how='left').dropna()
-    final_df = temp_df.loc[temp_df.rating_y > min_history].reset_index()
+    final_df = temp_df.loc[temp_df.rating_y >= min_history].reset_index()
 
     return final_df
 
@@ -72,9 +76,11 @@ def main():
 
     min_history = args.min_history
 
-    final_df = clean_df(ratings_df, number_of_items, min_history)
+    final_df = clean_df(ratings_df, number_of_items, min_history).drop(['index', 'rating_y'], axis = 1)
+    
+    final_df.columns = ['item', 'user', 'rating', 'timestamp']
 
-    final_df.to_csv(args.target_dir + 'sample_df.csv')
+    final_df.to_csv(args.target_dir + 'sample_df.csv', index=False)
 
     print("Clean dataframe saved to target directory")
 
