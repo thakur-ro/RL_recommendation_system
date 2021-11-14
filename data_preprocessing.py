@@ -5,7 +5,7 @@ import os
 from collections import defaultdict
 
 '''
-python data_preprocessing.py --file_path dataset/sample_df.csv --target_dir dataset/ --min_state_hist 12 --min_actions 1 --states_ratio 0.7 --sample_per_user 10
+python data_preprocessing.py --file_path data/sample_df.csv --target_dir data/ --min_state_hist 10 --min_actions 1 --states_ratio 0.7 --samples_per_user 10
 '''
 
 def parse_arguments():
@@ -60,6 +60,8 @@ def create_history(df):
 def create_sample_sequence(user_history, min_num_states, min_num_actions, states_ratio, sample_size):
     n = len(user_history)
     sep_ratio = int(states_ratio * n)
+    print("Separation ratio: ", sep_ratio)
+    print("num state",min_num_states)
     num_states, num_actions = [], []
     num_states = [min(np.random.randint(min_num_states, sep_ratio), sep_ratio) for i in range(sample_size)]
     num_actions = [min_num_actions for i in range(sample_size)]
