@@ -60,10 +60,10 @@ def create_history(df):
 def create_sample_sequence(user_history, min_num_states, min_num_actions, states_ratio, sample_size):
     n = len(user_history)
     sep_ratio = int(states_ratio * n)
-    print("Separation ratio: ", sep_ratio)
-    print("num state",min_num_states)
+    # print("Separation ratio: ", sep_ratio)
+    # print("num state",min_num_states)
     num_states, num_actions = [], []
-    num_states = [min(np.random.randint(min_num_states, sep_ratio), sep_ratio) for i in range(sample_size)]
+    num_states = [min_num_states for i in range(sample_size)]
     num_actions = [min_num_actions for i in range(sample_size)]
 
     states, actions = [], []
